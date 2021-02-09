@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.vvicee.constant.navigation.Path.ACCESS_ERROR_PAGE;
-import static com.vvicee.constant.navigation.Path.ERROR_PAGE;
 import static com.vvicee.constant.servlet.UserServletsConstant.CURRENT_USER;
 
 public class AdminFilter implements Filter {

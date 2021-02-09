@@ -10,7 +10,7 @@
 <body class="container" style="width: 1200px">
 <div class="row">
 
-    <form action="${pageContext.request.contextPath}/home/filter" class="col-md-8">
+    <form action="${pageContext.request.contextPath}/filter" class="col-md-8">
         <div class="row">
             <div class="col-md-4">
                 <h4>Categories</h4>
@@ -59,7 +59,7 @@
     <div class="col-md-4">
         <h4>Сортировка</h4>
         <br>
-        <form action="/home/sort" method="get">
+        <form action="/sort" method="get">
             <select name="comparedParameter" class="form-control" id="sortID"
                     onchange='submitFormSort(), this.form.submit()'>
                 <option disabled selected>Choose sorting...</option>

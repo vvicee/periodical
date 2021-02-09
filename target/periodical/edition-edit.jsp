@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: User
-  Date: 31.01.2021
-  Time: 19:48
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,9 +8,9 @@
     <%@ include file="WEB-INF/jspf/header.jspf" %>
 </header>
 <body class="container" style="width: 1200px">
-<form method="post" action="/admin/edit-edition">
+<form method="post" action="${pageContext.request.contextPath}/admin/edit-edition">
     <div class="alert alert-info mt-2">
-        <input name="edition_id" type="hidden" value="${param.id}">
+        <input name="edition_id" type="hidden" value="${edition.id}">
         <input name="title" value="${edition.title}" placeholder="">
         <input name="publisher" value="${edition.publisher}" placeholder="">
         <input name="description" value="${edition.description}" placeholder="">

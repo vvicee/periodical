@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -6,7 +7,7 @@
 <header>
     <%@include file="WEB-INF/jspf/header.jspf" %>
 </header>
-<body style="width: 1200px">
+<body class="container">
 
 <div class="container">
     <div class="row">

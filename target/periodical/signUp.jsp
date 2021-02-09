@@ -7,7 +7,8 @@
 <header>
     <%@include file="WEB-INF/jspf/header.jspf"%>
 </header>
-<body style="width: 1200px">
+<body class="container">
+
 <h2>Регистрация</h2>
 <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/signUp" >
     <div class="form-group">

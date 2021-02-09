@@ -24,7 +24,6 @@ public class HomeServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         editionService = (EditionService) getServletContext().getAttribute(EDITION_SERVICE_CONTEXT);
-        super.init();
     }
 
     @Override

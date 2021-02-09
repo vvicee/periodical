@@ -26,6 +26,10 @@
         <filter-name>ProfileFilter</filter-name>
         <url-pattern>/profile/*</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>ProfileFilter</filter-name>
+        <url-pattern>/edition/subscribe</url-pattern>
+    </filter-mapping>
 
 
     <filter>

@@ -7,8 +7,8 @@ public class Path {
     public static final String EDITION_DELETE_SERVLET = "/admin/delete-edition";
     public static final String ADMIN_PROFILE_SERVLET = "/admin";
     public static final String BLOCK_USER_SERVLET = "/admin/block";
-    public static final String FILTER_EDITION_SERVLET ="/home/filter" ;
-    public static final String SORT_EDITION_SERVLET = "/home/sort";
+    public static final String FILTER_EDITION_SERVLET ="/filter" ;
+    public static final String SORT_EDITION_SERVLET = "/sort";
     public static final String SEARCH_EDITION_SERVLET = "/search";
     public static final String HOME_SERVLET = "/home";
     public static final String LOGIN_SERVLET = "/login";

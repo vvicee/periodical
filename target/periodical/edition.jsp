@@ -17,11 +17,17 @@
         <h2>${edition.price}</h2>
         <h2>${edition.theme}</h2>
         <h2>${edition.category}</h2>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-            Subscribe
-        </button>
+        <input hidden name="edition_id" value="${edition.id}">
 
-        <form method="post" action="/edition/subscribe">
+        <c:if test="${sessionScope.user.role == 'USER'}">
+            <button type="button" class="btn btn-primary" style="width: 200px; text-align: center" data-toggle="modal"
+                    data-target="#exampleModalCenter">
+                Subscribe
+            </button>
+        </c:if>
+
+
+        <form method="post" action="${pageContext.request.contextPath}/edition/subscribe">
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -37,9 +43,6 @@
                                     <input name="months" type="checkbox" value="${m}"> ${m}
                                 </li>
                             </c:forEach>
-
-                            <input type="button" value="Get price" onclick="getPrice();"><br>
-                            <div id="result"></div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" style="width: 100px" class="btn btn-secondary" data-dismiss="modal">
@@ -51,27 +54,16 @@
                 </div>
             </div>
         </form>
+        <c:if test="${sessionScope.user.role == 'ADMIN'}">
+            <a href="${pageContext.request.contextPath}/admin/edit-edition?edition_id=${edition.id}"
+               class="btn btn-warning ml-5">
+                Edit </a>
+            <a href="${pageContext.request.contextPath}/admin/delete-edition?edition_id=${edition.id}"
+               class="btn btn-warning ml-5">
+                Delete </a>
+        </c:if>
     </div>
-    <a href="${pageContext.request.contextPath}/admin/edit-edition?edition_id=${edition.id}" class="btn btn-warning ml-5">
-        Edit </a>
-    <a href="${pageContext.request.contextPath}/admin/delete-edition?edition_id=${edition.id}" class="btn btn-warning ml-5">
-        Delete </a>
 </div>
-<script>
-    function getPrice() {
-        var userDateEntry = new Date(document.getElementById('dateTo').value);
-        const today = new Date();
-        var todayMonth = today.getMonth();
-        var testMonth = userDateEntry.getMonth();
-        var todayYear = today.getFullYear();
-        var testYear = userDateEntry.getFullYear();
-        const diffOfMonths = testMonth - todayMonth + (testYear - todayYear) * 12;
-        const price = document.getElementById('price');
-        const result = diffOfMonths * price;
-
-        document.getElementById('result').innerHTML = "<h1>" + result + "</h1>";
-    }
-</script>
 
 </body>
 </html>

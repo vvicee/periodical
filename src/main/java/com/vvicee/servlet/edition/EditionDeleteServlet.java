@@ -40,6 +40,6 @@ public class EditionDeleteServlet extends HttpServlet {
             req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
         }
         logger.debug("Edition delete successfully");
-        resp.sendRedirect(EDITION_DESCRIPTION_SERVLET + "?edition_id=" + id);
+        resp.sendRedirect(HOME_SERVLET);
     }
 }
