@@ -52,9 +52,9 @@
             </div>
         </form>
     </div>
-    <a href="${pageContext.request.contextPath}/edition/edit?edition_id=${edition.id}" class="btn btn-warning ml-5">
+    <a href="${pageContext.request.contextPath}/admin/edit-edition?edition_id=${edition.id}" class="btn btn-warning ml-5">
         Edit </a>
-    <a href="${pageContext.request.contextPath}/edition/delete?edition_id=${edition.id}" class="btn btn-warning ml-5">
+    <a href="${pageContext.request.contextPath}/admin/delete-edition?edition_id=${edition.id}" class="btn btn-warning ml-5">
         Delete </a>
 </div>
 <script>

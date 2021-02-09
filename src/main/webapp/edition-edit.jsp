@@ -14,7 +14,7 @@
     <%@ include file="WEB-INF/jspf/header.jspf" %>
 </header>
 <body class="container" style="width: 1200px">
-<form method="post" action="/edition/edit">
+<form method="post" action="/admin/edit-edition">
     <div class="alert alert-info mt-2">
         <input name="edition_id" type="hidden" value="${param.id}">
         <input name="title" value="${edition.title}" placeholder="">
