@@ -8,10 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.vvicee.constant.context.ContextConstant.EDITION_SERVICE_CONTEXT;
 import static com.vvicee.constant.context.ContextConstant.REQUEST_PAGE;
 import static com.vvicee.constant.navigation.Path.LOGIN_SERVLET;
+import static com.vvicee.constant.servlet.SettingServletConstant.*;
 import static com.vvicee.constant.servlet.UserServletsConstant.CURRENT_USER;
+import static java.util.Objects.isNull;
 
 public class LoginFilter implements Filter {
     EditionService service;
@@ -25,9 +26,6 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
-
-        service = (EditionService) req.getServletContext().getAttribute(EDITION_SERVICE_CONTEXT);
-        service.resetFilters();
 
         String url = req.getRequestURL().toString();
         User user = (User) req.getSession().getAttribute(CURRENT_USER);

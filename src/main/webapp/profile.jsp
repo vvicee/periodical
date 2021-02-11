@@ -1,8 +1,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<c:choose>
+    <c:when test="${sessionScope.locale != null}">
+        <fmt:setLocale value="${param.locale}" scope="session"/>
+    </c:when>
+    <c:otherwise>
+        <fmt:setLocale value="en"/>
+    </c:otherwise>
+</c:choose>
+
+<fmt:setBundle basename="resources"/>
 <html>
 <head>
-    <title>Profile</title>
+    <title><fmt:message key="profile.title"/></title>
 </head>
 <header>
     <%@include file="WEB-INF/jspf/header.jspf" %>
@@ -16,25 +28,26 @@
         <h2>${user.balance}</h2>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-            Top up balance!
+            <fmt:message key="profile.balance_"/>
         </button>
 
-        <form method="post" action="/profile/balance">
+        <form method="post" action="${pageContext.request.contextPath}/profile/balance">
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Balance</h5>
+                            <h5 class="modal-title" id="exampleModalLongTitle"><fmt:message key="profile.balance"/>
+                            </h5>
                         </div>
                         <div class="modal-body">
-                            Credit card number: <input name="numberCard" type="number" size="10"><br><br>
+                            <fmt:message key="profile.credit"/>: <input name="numberCard" type="number" size="10"><br><br>
                             CVV: <input name="cvv" type="number" size="3"><br><br>
-                            Amount of money: <input name="money" type="number"><br><br>
+                            <fmt:message key="profile.money"/>: <input name="money" type="number"><br><br>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-primary" value="Top up balance">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message key="profile.close"/></button>
+                            <input type="submit" class="btn btn-primary" value="<fmt:message key="profile.balance_"/>">
                         </div>
                     </div>
                 </div>
@@ -42,12 +55,12 @@
         </form>
     </div>
 
-    <a href="${pageContext.request.contextPath}/profile/edit" class="btn btn-warning ml-5"> Edit</a>
+    <a href="${pageContext.request.contextPath}/profile/edit" class="btn btn-warning ml-5"> <fmt:message key="edition.edit"/></a>
     <form action="${pageContext.request.contextPath}/profile" method="post">
-        <button class="btn btn-warning ml-5" type="submit"> Delete</button>
+        <button class="btn btn-warning ml-5" type="submit"> <fmt:message key="edition.delete"/></button>
     </form>
 
-<h3>Subscription</h3>
+<h3><fmt:message key="edition.subscription"/></h3>
     <div class="card-deck">
         <c:forEach items="${edition}" var="ed">
             <div class="card">
@@ -61,7 +74,7 @@
                     </ul>
                 </div>
                 <div class="card-footer">
-                    <a href="/edition?edition_id=${ed.id}" class="card-link">Details</a>
+                    <a href="${pageContext.request.contextPath}/edition?edition_id=${ed.id}" class="card-link"><fmt:message key="edition.details"/></a>
                 </div>
             </div>
         </c:forEach>

@@ -20,11 +20,11 @@ public class EditionService {
     Logger logger = Logger.getLogger(EditionService.class);
 
     private List<Edition> currentEditions;
+    private int countEditions;
     EditionDAOImpl editionDAO;
 
     public EditionService() {
         editionDAO = new EditionDAOImpl();
-
     }
 
     public void loadEditionsFromDB() throws DBException {
@@ -32,8 +32,14 @@ public class EditionService {
         setCurrentEditions(editions);
     }
 
+    public int getCountEditions() {
+        return countEditions;
+    }
+
     public List<Edition> getEditions() throws DBException {
-        return editionDAO.findAll();
+        List<Edition> editions = editionDAO.findAll();
+        countEditions = editions.size();
+        return editions;
     }
 
     public List<Edition> getCurrentEditions() {

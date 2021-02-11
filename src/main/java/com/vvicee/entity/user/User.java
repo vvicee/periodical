@@ -20,12 +20,14 @@ public class User implements Serializable {
 
     }
 
-    public User(String name, String surname, String email, String password, boolean mailings) {
+    public User(String name, String surname, String email, String password, boolean isActive, boolean mailings, Role role) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
+        this.isActive = isActive;
         this.mailings = mailings;
+        this.role = role;
     }
 
     public User(int id, String name, String surname, String email, String password, boolean isActive, boolean mailings, String avatarPath, double balance, Role role) {

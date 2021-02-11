@@ -10,4 +10,5 @@ public class EditionServletConstant {
     public static final String COMPARATOR_PRICE_ASC = "price_asc";
     public static final String MONTHS = "months" ;
     public static final String EDITION = "edition";
+    public static final String SAVE_ACTION = "action";
 }

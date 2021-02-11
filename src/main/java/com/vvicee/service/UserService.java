@@ -1,6 +1,7 @@
 package com.vvicee.service;
 
 import com.vvicee.db.implDao.UserDAOImpl;
+import com.vvicee.entity.user.Role;
 import com.vvicee.entity.user.User;
 import com.vvicee.exception.DBException;
 
@@ -13,7 +14,7 @@ public class UserService {
 
     public UserService() throws DBException {
         userDAO = new UserDAOImpl();
-        users = userDAO.findAll();
+        users = userDAO.findAll().stream().filter(user -> !user.getRole().equals(Role.ADMIN)).collect(Collectors.toList());
     }
 
     public List<User> getActiveUsers() {
@@ -28,6 +29,22 @@ public class UserService {
         double newBalance = user.getBalance() + money;
         user.setBalance(newBalance);
         userDAO.setBalance(user);
+    }
+
+    public int getMaxNumberPage() {
+        int usersNumber = users.size();
+        return (int) Math.ceil((double) usersNumber / 6);
+    }
+
+    public List<User> getUsers(int page) {
+        int maxNumberUsers = 6;
+        int from = maxNumberUsers * (page - 1);
+        int to = from + maxNumberUsers;
+
+        if (to > users.size()) {
+            to = users.size();
+        }
+        return users.subList(from, to);
     }
 
 }

@@ -2,6 +2,7 @@ package com.vvicee.listener;
 
 import com.vvicee.exception.DBException;
 import com.vvicee.service.EditionService;
+import com.vvicee.service.UserService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletContext;
@@ -10,6 +11,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import static com.vvicee.constant.context.ContextConstant.EDITION_SERVICE_CONTEXT;
+import static com.vvicee.constant.context.ContextConstant.USER_SERVICE_CONTEXT;
 
 @WebListener
 public class ContextListenerServlet implements ServletContextListener {
@@ -20,12 +22,25 @@ public class ContextListenerServlet implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         ServletContext servletContext = servletContextEvent.getServletContext();
         initEditionService(servletContext);
+        initUserService(servletContext);
     }
+
+
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
     }
 
+    private void initUserService(ServletContext servletContext) {
+        try {
+            UserService userService = new UserService();
+            servletContext.setAttribute(USER_SERVICE_CONTEXT, userService);
+        } catch (DBException exception) {
+            logger.error("Failed database");
+            throw new IllegalStateException();
+        }
+        logger.debug("UserService initialize successfully");
+    }
     private void initEditionService(ServletContext servletContext) {
         try {
             EditionService editionService = new EditionService();

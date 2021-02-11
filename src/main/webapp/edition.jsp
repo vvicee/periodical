@@ -1,8 +1,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<c:choose>
+    <c:when test="${sessionScope.locale != null}">
+        <fmt:setLocale value="${param.locale}" scope="session"/>
+    </c:when>
+    <c:otherwise>
+        <fmt:setLocale value="en"/>
+    </c:otherwise>
+</c:choose>
+
+<fmt:setBundle basename="resources"/>
 <html>
 <head>
-    <title>Edition</title>
+    <title><fmt:message key="edition.title"/> </title>
 
 </head>
 <header>
@@ -22,7 +34,7 @@
         <c:if test="${sessionScope.user.role == 'USER'}">
             <button type="button" class="btn btn-primary" style="width: 200px; text-align: center" data-toggle="modal"
                     data-target="#exampleModalCenter">
-                Subscribe
+                <fmt:message key="edition.subscribe"/>
             </button>
         </c:if>
 
@@ -34,10 +46,10 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <input hidden name="edit_id" value="${edition.id}">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Subscription</h5>
+                            <h5 class="modal-title" id="exampleModalLongTitle"><fmt:message key="edition.subscription"/> </h5>
                         </div>
                         <div class="modal-body">
-                            <h4>Choose months of subscription</h4>
+                            <h4><fmt:message key="edition.choose_months"/> </h4>
                             <c:forEach items="${months}" var="m">
                                 <li>
                                     <input name="months" type="checkbox" value="${m}"> ${m}
@@ -48,7 +60,7 @@
                             <button type="button" style="width: 100px" class="btn btn-secondary" data-dismiss="modal">
                                 Close
                             </button>
-                            <input type="submit" class="btn btn-primary" value="Subscribe">
+                            <input type="submit" class="btn btn-primary" value="<fmt:message key="edition.subscribe"/>">
                         </div>
                     </div>
                 </div>
@@ -57,10 +69,10 @@
         <c:if test="${sessionScope.user.role == 'ADMIN'}">
             <a href="${pageContext.request.contextPath}/admin/edit-edition?edition_id=${edition.id}"
                class="btn btn-warning ml-5">
-                Edit </a>
+                <fmt:message key="edition.edit"/> </a>
             <a href="${pageContext.request.contextPath}/admin/delete-edition?edition_id=${edition.id}"
                class="btn btn-warning ml-5">
-                Delete </a>
+                <fmt:message key="edition.delete"/> </a>
         </c:if>
     </div>
 </div>
