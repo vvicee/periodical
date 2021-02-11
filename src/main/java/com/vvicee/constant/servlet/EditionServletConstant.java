@@ -11,4 +11,6 @@ public class EditionServletConstant {
     public static final String MONTHS = "months" ;
     public static final String EDITION = "edition";
     public static final String SAVE_ACTION = "action";
+    public static final String VIEWS = "views";
+    public static final String SUBSCRIPTIONS = "subscriptions";
 }

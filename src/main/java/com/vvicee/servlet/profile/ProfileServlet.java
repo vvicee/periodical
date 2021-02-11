@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import static com.vvicee.constant.navigation.Path.*;
 import static com.vvicee.constant.servlet.EditionServletConstant.EDITION;
+import static com.vvicee.constant.servlet.EditionServletConstant.SUBSCRIPTIONS;
 import static com.vvicee.constant.servlet.UserServletsConstant.CURRENT_USER;
 
 @WebServlet(PROFILE_SERVLET)
@@ -30,8 +31,7 @@ public class ProfileServlet extends HttpServlet {
 
         req.setAttribute(CURRENT_USER, user);
         try {
-            req.setAttribute(EDITION, subscriptionService.getEditions(user));
-            req.setAttribute("subscriptions", subscriptionService.getSubscriptions(user.getId()));
+            req.setAttribute(SUBSCRIPTIONS, subscriptionService.getSubscriptions(user.getId()));
         } catch (DBException e) {
             logger.error("Failed in get request");
             req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);

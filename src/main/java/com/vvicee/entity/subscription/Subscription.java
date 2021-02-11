@@ -1,5 +1,7 @@
 package com.vvicee.entity.subscription;
 
+import com.vvicee.entity.edition.Edition;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -7,20 +9,27 @@ import java.util.Objects;
 
 public class Subscription implements Serializable {
     private int id;
-    private int editionId;
     private int userId;
     private int year;
+    private Edition edition;
     private List<Month> months;
 
     public Subscription() {
     }
 
-    public Subscription(int id, int editionId, int userId, int year, List<Month> months) {
+    public Subscription(int id, int userId, int year, List<Month> months) {
         this.id = id;
-        this.editionId = editionId;
         this.userId = userId;
         this.year = year;
         this.months = months;
+    }
+
+    public Edition getEdition() {
+        return edition;
+    }
+
+    public void setEdition(Edition edition) {
+        this.edition = edition;
     }
 
     public int getId() {
@@ -31,12 +40,16 @@ public class Subscription implements Serializable {
         this.id = id;
     }
 
-    public int getEditionId() {
-        return editionId;
+    public double getPrice() {
+        return months.size() * edition.getPrice();
     }
 
-    public void setEditionId(int editionId) {
-        this.editionId = editionId;
+    public String getMonthsAsString() {
+        StringBuilder result = new StringBuilder();
+        for (Month month : months) {
+            result.append(String.valueOf(month).toLowerCase()).append(", ");
+        }
+        return result.toString().substring(0, result.length() - 2);
     }
 
     public int getUserId() {
@@ -69,7 +82,6 @@ public class Subscription implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Subscription that = (Subscription) o;
         return id == that.id &&
-                editionId == that.editionId &&
                 userId == that.userId &&
                 year == that.year;
     }
@@ -77,14 +89,14 @@ public class Subscription implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, editionId, userId, year);
+        return Objects.hash(id, edition.getId(), userId, year);
     }
 
     @Override
     public String toString() {
         return "Subscription{" +
                 "id=" + id +
-                ", editionId=" + editionId +
+                ", editionId=" + edition.getId() +
                 ", userId=" + userId +
                 ", year=" + year +
                 ", months=" + months +

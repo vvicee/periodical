@@ -17,8 +17,7 @@ import java.io.IOException;
 import static com.vvicee.constant.entity.EditionConstant.EDITION_ID;
 import static com.vvicee.constant.navigation.Path.EDITION_DESCRIPTION_SERVLET;
 import static com.vvicee.constant.navigation.Path.EDITION_PAGE;
-import static com.vvicee.constant.servlet.EditionServletConstant.EDITION;
-import static com.vvicee.constant.servlet.EditionServletConstant.MONTHS;
+import static com.vvicee.constant.servlet.EditionServletConstant.*;
 
 @WebServlet(EDITION_DESCRIPTION_SERVLET)
 public class EditionDescriptionServlet extends HttpServlet {
@@ -40,6 +39,7 @@ public class EditionDescriptionServlet extends HttpServlet {
             req.setAttribute(EDITION, edition);
             req.setAttribute(MONTHS, Month.getAvailableMonths());
 
+            req.getSession().setAttribute(VIEWS, edition);
             req.getRequestDispatcher(EDITION_PAGE).forward(req, resp);
 
         } catch (DBException e) {

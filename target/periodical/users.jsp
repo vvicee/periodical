@@ -65,23 +65,14 @@
     </tbody>
 </table>
 <ul class="pager">
-    <c:choose>
-        <c:when test="${page == 1}">
-            <li class="previous"><a href="" class="disabled">Previous</a></li>
-        </c:when>
-        <c:otherwise>
-            <li class="previous"><a href="${pageContext.request.contextPath}/admin/users?page=${page-1}">Previous</a>
-            </li>
-        </c:otherwise>
-    </c:choose>
-    <c:choose>
-        <c:when test="${page == maxPage}">
-            <li class="next"><a href="" class="disabled">Next</a></li>
-        </c:when>
-        <c:otherwise>
-            <li class="next"><a href="${pageContext.request.contextPath}/admin/users?page=${page+1}">Next</a></li>
-        </c:otherwise>
-    </c:choose>
+    <c:if test="${page != 1}">
+        <li class="previous"><a href="${pageContext.request.contextPath}/admin/users?page=${page-1}">Previous</a>
+        </li>
+    </c:if>
+    <c:if test="${page == maxPage}">
+        <li class="next"><a href="${pageContext.request.contextPath}/admin/users?page=${page+1}">Next</a></li>
+    </c:if>
+
 </ul>
 </body>
 </html>

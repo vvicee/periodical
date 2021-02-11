@@ -20,65 +20,117 @@
     <%@include file="WEB-INF/jspf/header.jspf" %>
 </header>
 <body>
-<div class="container mt-5">
-    <div class="alert alert-info mt-2">
-        <h1>${user.name}</h1>
-        <h1>${user.surname}</h1>
-        <span>${user.email}</span>
-        <h2>${user.balance}</h2>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-            <fmt:message key="profile.balance_"/>
-        </button>
+<div class="container">
+    <div class="row">
+        <div class="col col-md-2">
+            <form action="${pageContext.request.contextPath}/profile" method="post">
+                <button class="btn btn-danger" type="submit"><fmt:message key="edition.delete"/></button>
+            </form>
+        </div>
+        <div class="col col-md-6">
+            <a href="${pageContext.request.contextPath}/profile/edit" style="width: 200px" class="btn btn-success"> <fmt:message
+                    key="edition.edit"/></a>
+        </div>
+    </div>
+    <h3>Personal info</h3>
 
-        <form method="post" action="${pageContext.request.contextPath}/profile/balance">
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle"><fmt:message key="profile.balance"/>
-                            </h5>
-                        </div>
-                        <div class="modal-body">
-                            <fmt:message key="profile.credit"/>: <input name="numberCard" type="number" size="10"><br><br>
-                            CVV: <input name="cvv" type="number" size="3"><br><br>
-                            <fmt:message key="profile.money"/>: <input name="money" type="number"><br><br>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message key="profile.close"/></button>
-                            <input type="submit" class="btn btn-primary" value="<fmt:message key="profile.balance_"/>">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
+    <div class="row">
+        <div class="col-md-4">
+            <b><h4><fmt:message key="user.name"/></h4></b>
+        </div>
+        <div class="col-md-6">
+            <h4>${user.name}</h4>
+        </div>
     </div>
 
-    <a href="${pageContext.request.contextPath}/profile/edit" class="btn btn-warning ml-5"> <fmt:message key="edition.edit"/></a>
-    <form action="${pageContext.request.contextPath}/profile" method="post">
-        <button class="btn btn-warning ml-5" type="submit"> <fmt:message key="edition.delete"/></button>
-    </form>
 
-<h3><fmt:message key="edition.subscription"/></h3>
-    <div class="card-deck">
-        <c:forEach items="${edition}" var="ed">
-            <div class="card">
-                <img class="card-img-top" src="${pageContext.request.contextPath}/images/books.png" style="height: 150px; width: 100px" alt="Card image cap">
-                <div class="card-block">
-                    <h4 class="card-title">${ed.title}</h4>
-                    <p class="card-text"> ${ed.description} </p>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">${ed.price}</li>
-                        <li class="list-group-item">${ed.theme}</li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <a href="${pageContext.request.contextPath}/edition?edition_id=${ed.id}" class="card-link"><fmt:message key="edition.details"/></a>
-                </div>
-            </div>
-        </c:forEach>
+    <div class="row">
+        <div class="col-md-4">
+            <b><h4><fmt:message key="user.surname"/></h4></b>
+        </div>
+        <div class="col-md-6">
+            <h4>${user.surname}</h4>
+        </div>
     </div>
+    <div class="row">
+        <div class="col-md-4">
+            <b><h4><fmt:message key="admin.Email"/></h4></b>
+        </div>
+        <div class="col-md-6">
+            <h4>${user.email}</h4>
+        </div>
+    </div>
+    <hr>
+    <h3>Account info</h3>
+    <div class="row">
+        <div class="col-md-3">
+            <b><h4><fmt:message key="profile.balance"/></h4></b>
+        </div>
+        <div class="col-md-3">
+            <h4 style="color: red">${user.balance}</h4>
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                <fmt:message key="profile.balance_"/>
+            </button>
+        </div>
+    </div>
+    <hr>
+    <c:if test="${requestScope.subscriptions!=null}">
+        <h3><fmt:message key="edition.subscription"/></h3>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Edition</th>
+                <th scope="col">Year</th>
+                <th scope="col">Months</th>
+<%--                <th scope="col">Status</th>--%>
+                <th scope="col">Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="sub" items="${subscriptions}">
+                <tr>
+                    <td>${sub.id}</td>
+                    <td><a href="/edition?edition_id=${sub.edition.id}">${sub.edition.title}</a></td>
+                    <td>${sub.year}</td>
+                    <td>${sub.getMonthsAsString()}</td>
+<%--                    <td>${sub}</td>--%>
+                    <td style="color: red">${sub.getPrice()}</td>
+                </tr>
+            </c:forEach>
+
+            </tbody>
+        </table>
+
+    </c:if>
+
 </div>
+<form method="post" action="${pageContext.request.contextPath}/profile/balance">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"><fmt:message key="profile.balance"/>
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <fmt:message key="profile.credit"/>: <input name="numberCard" type="number"
+                                                                size="10"><br><br>
+                    CVV: <input name="cvv" type="number" size="3"><br><br>
+                    <fmt:message key="profile.money"/>: <input name="money" type="number"><br><br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message
+                            key="profile.close"/></button>
+                    <input type="submit" class="btn btn-primary"
+                           value="<fmt:message key="profile.balance_"/>">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 </body>
 </html>

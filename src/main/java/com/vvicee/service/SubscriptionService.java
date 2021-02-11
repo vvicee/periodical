@@ -37,7 +37,7 @@ public class SubscriptionService {
 
         Subscription subscription = new Subscription();
         subscription.setUserId(user.getId());
-        subscription.setEditionId(editionId);
+        subscription.setEdition(editionDAO.find(editionId));
         subscription.setYear(LocalDate.now().getYear());
         subscription.setMonths(Month.convertArrayToList(months));
         logger.debug("Adding subscription " + subscription);
@@ -50,6 +50,7 @@ public class SubscriptionService {
         }
         return false;
     }
+
 
     private boolean withdrawMoneyForSubscription(User user, int editionId, String[] months) throws DBException {
         UserService userService = new UserService();

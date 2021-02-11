@@ -1,7 +1,9 @@
 package com.vvicee.db.implDao;
 
 import com.vvicee.db.DBManager;
+import com.vvicee.db.dao.EditionDAO;
 import com.vvicee.db.dao.SubscriptionDAO;
+import com.vvicee.entity.edition.Edition;
 import com.vvicee.entity.subscription.Month;
 import com.vvicee.entity.subscription.Subscription;
 import com.vvicee.exception.DBException;
@@ -114,7 +116,7 @@ public class SubscriptionDAOImpl implements SubscriptionDAO {
 
     private void setParametersOfSubscription(Subscription subscription, PreparedStatement statement, Connection connection) throws DBException {
         try {
-            statement.setInt(1, subscription.getEditionId());
+            statement.setInt(1, subscription.getEdition().getId());
             statement.setInt(2, subscription.getUserId());
             statement.setInt(3, subscription.getYear());
             Array months = connection.createArrayOf("text", subscription.getMonths().toArray());
@@ -126,11 +128,12 @@ public class SubscriptionDAOImpl implements SubscriptionDAO {
     }
 
     private Subscription parseSubscription(ResultSet resultSet) throws DBException {
+        EditionDAOImpl dao = new EditionDAOImpl();
         Subscription subscription = new Subscription();
 
         try{
             subscription.setId(resultSet.getInt(SUBSCRIPTION_ID));
-            subscription.setEditionId(resultSet.getInt(EDITION_ID_FROM_SUBSCRIPTION));
+            subscription.setEdition(dao.find(resultSet.getInt(EDITION_ID_FROM_SUBSCRIPTION)));
             subscription.setUserId(resultSet.getInt(USER_ID_FROM_SUBSCRIPTION));
             subscription.setYear(resultSet.getInt(SUBSCRIPTION_YEAR));
             List<Month> months = getMonthsFromDB(resultSet);
