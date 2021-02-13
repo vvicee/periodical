@@ -37,23 +37,24 @@
     <c:forEach items="${users}" var="user">
         <c:if test="${user.role != 'ADMIN'}">
             <tr>
-                <td>${user.id}</td>
-                <td>${user.name}</td>
-                <td>${user.surname}</td>
-                <td>${user.email}</td>
-                <td>${user.role}</td>
-                <form method="post" action="${pageContext.request.contextPath}/admin/block">
+                <form method="post" action="${pageContext.request.contextPath}/admin/users">
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td>${user.surname}</td>
+                    <td>${user.email}</td>
+                    <td>${user.role}</td>
+
                     <c:choose>
                         <c:when test="${user.isActive() == 'true'}">
                             <td style="color: green"><b>Active</b></td>
                             <td><a class="btn btn-danger"
-                                   href="${pageContext.request.contextPath}/admin/block?user_id=${user.id}&active=false"
+                                   href="${pageContext.request.contextPath}/admin/users?user_id=${user.id}&active=false"
                                    role="button">Block</a></td>
                         </c:when>
                         <c:otherwise>
                             <td style="color: #800000"><b>Blocked</b></td>
                             <td><a class="btn btn-success"
-                                   href="${pageContext.request.contextPath}/admin/block?user_id=${user.id}&active=true"
+                                   href="${pageContext.request.contextPath}/admin/users?user_id=${user.id}&active=true"
                                    role="button">Unblock</a></td>
                         </c:otherwise>
                     </c:choose>
@@ -65,14 +66,9 @@
     </tbody>
 </table>
 <ul class="pager">
-    <c:if test="${page != 1}">
-        <li class="previous"><a href="${pageContext.request.contextPath}/admin/users?page=${page-1}">Previous</a>
-        </li>
-    </c:if>
-    <c:if test="${page == maxPage}">
-        <li class="next"><a href="${pageContext.request.contextPath}/admin/users?page=${page+1}">Next</a></li>
-    </c:if>
-
+    <li class="previous"><a href="${pageContext.request.contextPath}/admin/users?page=${page-1}">Previous</a>
+    </li>
+    <li class="next"><a href="${pageContext.request.contextPath}/admin/users?page=${page+1}">Next</a></li>
 </ul>
 </body>
 </html>

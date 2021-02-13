@@ -30,16 +30,17 @@ public class AddEditionServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        req.getRequestDispatcher(ADD_EDITION_PAGE).forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
+       try {
             Edition edition = new Edition();
             EditionService editionService = (EditionService) getServletContext().getAttribute(EDITION_SERVICE_CONTEXT);
 
             editionService.setParametersOfEdition(req, edition);
+            System.out.println("NAME" + edition.getTitle());
             logger.debug("Add new edition " + edition);
             editionDAO.add(edition);
 
@@ -49,7 +50,7 @@ public class AddEditionServlet extends HttpServlet {
         }
         logger.debug("Edition added successfully");
 
-        resp.sendRedirect(ADMIN_PROFILE_SERVLET);
+        resp.sendRedirect(HOME_SERVLET);
     }
 
 }

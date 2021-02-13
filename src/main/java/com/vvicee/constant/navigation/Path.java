@@ -5,7 +5,6 @@ public class Path {
     public static final String EDITION_EDIT_SERVLET = "/admin/edit-edition";
     public static final String EDITION_ADD_SERVLET = "/admin/add-edition";
     public static final String EDITION_DELETE_SERVLET = "/admin/delete-edition";
-    public static final String ADMIN_PROFILE_SERVLET = "/admin";
     public static final String BLOCK_USER_SERVLET = "/admin/block";
     public static final String ADMIN_USERS = "/admin/users";
     public static final String FILTER_EDITION_SERVLET ="/filter" ;
@@ -24,7 +23,7 @@ public class Path {
     public static final String HOME_PAGE = "/index.jsp";
     public static final String LOGIN_PAGE = "/login.jsp";
     public static final String ERROR_PAGE = "/error.jsp";
-    public static final String ADMIN_PAGE = "/admin.jsp";
+    public static final String ADMIN_PAGE = "/add-edition.jsp";
     public static final String EDITION_PAGE = "/edition.jsp";
     public static final String EDITION_EDIT_PAGE = "/edition-edit.jsp";
     public static final String PROFILE_EDIT_PAGE = "/profile-edit.jsp";
@@ -32,5 +31,6 @@ public class Path {
     public static final String REGISTRATION_PAGE = "/signUp.jsp";
     public static final String ACCESS_ERROR_PAGE = "/access-error.jsp";
     public static final String USERS_PAGE = "/users.jsp";
+    public static final String ADD_EDITION_PAGE = "/add-edition.jsp";
 
 }

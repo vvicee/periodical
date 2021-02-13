@@ -26,11 +26,13 @@
             <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/login">
                 <span class="heading" style="text-align: center"><fmt:message key="login.auth"/></span> <br><br>
                 <div class="form-group">
-                    <input type="email" class="form-control" name="email" id="inputEmail" placeholder="<fmt:message key="user.mail"/>">
+                    <input type="email" class="form-control" name="email" id="inputEmail"
+                           data-pattern="[a-zA-Z0-9]+@[a-z]+\.[a-z]+" placeholder="<fmt:message key="user.mail"/>">
                     <i class="fa fa-user"></i>
                 </div>
                 <div class="form-group help">
                     <input type="password" class="form-control" name="password" id="inputPassword"
+                           data-pattern=".{1,}"
                            placeholder="<fmt:message key="user.pass"/>">
                     <i class="fa fa-lock"></i>
                     <a href="#" class="fa fa-question-circle"></a>

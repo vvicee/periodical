@@ -59,6 +59,7 @@ public class EditionService {
     }
 
     public void setParametersOfEdition(HttpServletRequest req, Edition edition) {
+        System.out.println("NAME FROM REQ" + req.getParameter(EDITION_TITLE));
         edition.setTitle(req.getParameter(EDITION_TITLE));
         edition.setPrice(Double.parseDouble(req.getParameter(EDITION_PRICE)));
         edition.setDescription(req.getParameter(EDITION_DESCRIPTION));

@@ -9,19 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static com.vvicee.constant.context.ContextConstant.EDITION_SERVICE_CONTEXT;
 import static com.vvicee.constant.navigation.Path.HOME_PAGE;
 import static com.vvicee.constant.navigation.Path.HOME_SERVLET;
 import static com.vvicee.constant.servlet.EditionServletConstant.LIST_OF_EDITIONS;
-import static com.vvicee.constant.servlet.EditionServletConstant.SAVE_ACTION;
-import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
 
 @WebServlet(HOME_SERVLET)
 public class HomeServlet extends HttpServlet {

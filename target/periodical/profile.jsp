@@ -120,7 +120,7 @@
                     <fmt:message key="profile.credit"/>: <input name="numberCard" type="number"
                                                                 size="10"><br><br>
                     CVV: <input name="cvv" type="number" size="3"><br><br>
-                    <fmt:message key="profile.money"/>: <input name="money" type="number"><br><br>
+                    <fmt:message key="profile.money"/>: <input name="money" type="number" min="0"><br><br>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"><fmt:message
