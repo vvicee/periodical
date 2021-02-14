@@ -2,6 +2,7 @@ package com.vvicee.db;
 
 import com.vvicee.exception.DBException;
 import org.apache.log4j.Logger;
+import org.postgresql.ds.PGSimpleDataSource;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,17 +35,20 @@ public class DBManager {
      */
     public Connection getConnection() throws DBException {
 
+        Connection connection;
         try {
-            String url = getDaoConfig().getProperty(DB_URL);
-            String user = getDaoConfig().getProperty(DB_USER);
-            String password = getDaoConfig().getProperty(DB_PASSWORD);
-            Class.forName(getDaoConfig().getProperty(DB_DRIVER));
-            return DriverManager.getConnection(url, user, password);
+            PGSimpleDataSource dateSource = new PGSimpleDataSource() ;
+            dateSource.setURL(DB_URL);
+            dateSource.setUser(DB_USER);
+            dateSource.setPassword(DB_PASSWORD);
+            Class.forName(DB_DRIVER);
+            connection = dateSource.getConnection();
+            connection.setAutoCommit(false);
         } catch (SQLException | ClassNotFoundException exception) {
             logger.error("Failed get connection", exception);
             throw new DBException(exception);
         }
-
+        return connection;
     }
 
     /**

@@ -53,18 +53,18 @@
                 <b><fmt:message key="admin.price"/>:</b>
             </div>
             <div class="col-md-6">
-                <input class="input-field" name="price" type="number" min="0"/><br><br>
+                <input class="input-field" name="price" type="number" min="1"/><br><br>
             </div>
         </div>
 
-        <fmt:message key="admin.theme"/>:<br>
+        <b><fmt:message key="admin.theme"/>:</b><br>
         <input name="theme" type="radio" value="education" checked> <fmt:message key="edition.theme.education"/>
         <input name="theme" type="radio" value="health"> <fmt:message key="edition.theme.health"/>
         <input name="theme" type="radio" value="sport"> <fmt:message key="edition.theme.sport"/>
         <input name="theme" type="radio" value="fashion"> <fmt:message key="edition.theme.fashion"/>
         <input name="theme" type="radio" value="garden"> <fmt:message key="edition.theme.garden"/>
         <input name="theme" type="radio" value="economy"> <fmt:message key="edition.theme.economy"/><br><br>
-        <fmt:message key="admin.category"/>: <br>
+        <b><fmt:message key="admin.category"/>:</b> <br>
         <input name="category" type="radio" value="newspaper" checked> <fmt:message key="edition.category.newspaper"/>
         <input name="category" type="radio" value="magazine"> <fmt:message key="edition.category.magazine"/>
         <input name="category" type="radio" value="calendar"> <fmt:message key="edition.category.calendar"/>

@@ -20,7 +20,7 @@
 <header>
     <%@ include file="/WEB-INF/jspf/header.jspf" %>
 </header>
-<body>
+<body style="background: url(${pageContext.request.contextPath}/images/back.jpg)" >
 <div class="container text-center">
     <div class="row">
         <div class="col-sm-3 well">

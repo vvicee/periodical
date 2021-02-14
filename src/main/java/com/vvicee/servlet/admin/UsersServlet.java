@@ -32,7 +32,7 @@ public class UsersServlet extends HttpServlet {
             int page = Integer.parseInt(req.getParameter(PAGE));
             int maxPage = userService.getMaxNumberPage();
 
-            if (page > maxPage) {
+            if (page >= maxPage) {
                 page = maxPage;
             } else if (page < maxPage) {
                 page = 1;
