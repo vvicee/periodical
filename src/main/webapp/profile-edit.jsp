@@ -13,20 +13,41 @@
 <fmt:setBundle basename="resources"/>
 <html>
 <head>
-    <title><fmt:message key="user-edit.title"/> </title>
+    <title><fmt:message key="user-edit.title"/></title>
 </head>
 <header>
-    <%@include file="WEB-INF/jspf/header.jspf"%>
+    <%@include file="WEB-INF/jspf/header.jspf" %>
 </header>
-<body class="container" style="width: 1200px">
-<form method="post" action="${pageContext.request.contextPath}/profile/edit">
-    <div class="alert alert-info mt-2">
-        <input name="name" value="${user.name}" placeholder="<fmt:message key="user.name"/> ">
-        <input name="surname" value="${user.surname}" placeholder="<fmt:message key="user.surname"/>">
+<body>
+<div class="container">
+    <form method="post" action="${pageContext.request.contextPath}/profile/edit">
+        <div class="row">
+            <div class="col-md-4">
+                <b><h4><fmt:message key="user.name"/></h4></b>
+            </div>
+            <div class="col-md-6">
+                <input class="input-field" name="name" value="${user.name}" placeholder="<fmt:message key="user.name"/> ">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <b><h4><fmt:message key="user.surname"/></h4></b>
+            </div>
+            <div class="col-md-6">
+                <input class="input-field" name="surname" value="${user.surname}" placeholder="<fmt:message key="user.surname"/>">
+            </div>
+        </div>
+
+        <h4><fmt:message key="registration.notify"/></h4>
         <input name="notify" type="radio" value="yes" checked> <fmt:message key="yes"/>
         <input name="notify" type="radio" value="no"> <fmt:message key="no"/>
-    </div>
-    <input class="btn btn-warning ml-5" type="submit" value="<fmt:message key="edition.edit"/>">
-</form>
+
+        <br>
+
+        <input class="btn btn-warning" style="width: 200px" type="submit" value="<fmt:message key="edition.edit"/>">
+
+    </form>
+</div>
 </body>
 </html>

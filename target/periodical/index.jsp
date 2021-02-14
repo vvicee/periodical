@@ -20,10 +20,10 @@
 <header>
     <%@ include file="/WEB-INF/jspf/header.jspf" %>
 </header>
-<body style="background: url(${pageContext.request.contextPath}/images/back.jpg)" >
+<body >
 <div class="container text-center">
     <div class="row">
-        <div class="col-sm-3 well">
+        <div class="col-sm-3 well" style="background: white; position: sticky; top: 0">
             <div class="well">
                 <p>
                 <h4 style="text-align: center"><fmt:message key="index.sorting"/></h4>
@@ -129,7 +129,6 @@
                         </div>
                     </div>
                 </div>
-                <hr>
             </c:forEach>
         </div>
 

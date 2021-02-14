@@ -43,7 +43,6 @@
         </div>
     </div>
 
-
     <div class="row">
         <div class="col-md-4">
             <b><h4><fmt:message key="user.surname"/></h4></b>
