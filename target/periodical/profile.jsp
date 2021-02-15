@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="util" tagdir="/WEB-INF/tag" %>
 <c:choose>
     <c:when test="${sessionScope.locale != null}">
         <fmt:setLocale value="${param.locale}" scope="session"/>
@@ -22,11 +22,11 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="col col-md-2">
-            <form action="${pageContext.request.contextPath}/profile" method="post">
-                <button class="btn btn-danger" type="submit"><fmt:message key="edition.delete"/></button>
-            </form>
-        </div>
+<%--        <div class="col col-md-2">--%>
+<%--            <form action="${pageContext.request.contextPath}/profile" method="post">--%>
+<%--                <button class="btn btn-danger" type="submit"><fmt:message key="edition.delete"/></button>--%>
+<%--            </form>--%>
+<%--        </div>--%>
         <div class="col col-md-6">
             <a href="${pageContext.request.contextPath}/profile/edit" style="width: 200px" class="btn btn-success"> <fmt:message
                     key="edition.edit"/></a>

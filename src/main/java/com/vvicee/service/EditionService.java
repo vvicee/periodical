@@ -2,17 +2,17 @@ package com.vvicee.service;
 
 import com.vvicee.db.implDao.EditionDAOImpl;
 import com.vvicee.entity.edition.Edition;
+import com.vvicee.entity.edition.Theme;
 import com.vvicee.exception.DBException;
+import com.vvicee.servlet.Validator;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 
 import static com.vvicee.constant.entity.EditionConstant.*;
+import static com.vvicee.constant.servlet.ErrorsConstant.*;
 
 
 public class EditionService {
@@ -30,6 +30,10 @@ public class EditionService {
     public void loadEditionsFromDB() throws DBException {
         List<Edition> editions = getEditions();
         setCurrentEditions(editions);
+    }
+
+    public void notifySubscribers(Theme theme){
+
     }
 
     public int getCountEditions() {
@@ -58,14 +62,30 @@ public class EditionService {
         return edition -> true;
     }
 
-    public void setParametersOfEdition(HttpServletRequest req, Edition edition) {
-        System.out.println("NAME FROM REQ" + req.getParameter(EDITION_TITLE));
-        edition.setTitle(req.getParameter(EDITION_TITLE));
-        edition.setPrice(Double.parseDouble(req.getParameter(EDITION_PRICE)));
-        edition.setDescription(req.getParameter(EDITION_DESCRIPTION));
-        edition.setPublisher(req.getParameter(EDITION_PUBLISHER));
-        edition.setCategory(req.getParameter(EDITION_CATEGORY));
-        edition.setTheme(req.getParameter(EDITION_THEME));
+    public void setParametersOfEdition(Map<String, String> errors, HttpServletRequest req, Edition edition) {
+        String title = req.getParameter(EDITION_TITLE);
+        double price = Double.parseDouble(req.getParameter(EDITION_PRICE));
+        String description = req.getParameter(EDITION_DESCRIPTION);
+        String publisher = req.getParameter(EDITION_PUBLISHER);
+
+        if(!Validator.validateName(title)){
+            errors.put(EDITION_TITLE, INCORRECT_TITLE_ERROR);
+        } else if(!Validator.validateName(description)){
+            errors.put(EDITION_DESCRIPTION, INCORRECT_DESCRIPTION_ERROR);
+        } else if(!Validator.validateName(publisher)){
+            errors.put(EDITION_PUBLISHER, INCORRECT_PUBLISHER_ERROR);
+        } else if(!Validator.validatePrice(price)){
+            errors.put(EDITION_PRICE, INCORRECT_PRICE_ERROR);
+        }
+
+        if(errors.isEmpty()){
+            edition.setTitle(title);
+            edition.setDescription(description);
+            edition.setPublisher(publisher);
+            edition.setPrice(price);
+            edition.setCategory(req.getParameter(EDITION_CATEGORY));
+            edition.setTheme(req.getParameter(EDITION_THEME));
+        }
     }
 
     public Predicate<Edition> getPredicateForThemes(String[] themes) {

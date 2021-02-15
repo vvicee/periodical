@@ -17,16 +17,63 @@ public class Edition implements Serializable {
     public Edition() {
     }
 
-    public Edition(String title, String publisher, String description, double price, Category category, Theme theme){
-        this.title = title;
-        this.publisher = publisher;
-        this.description = description;
-        this.price = price;
-        this.category = category;
-        this.theme = theme;
+    public static class Builder {
+
+        private int id;
+        private String title;
+        private String publisher;
+        private String description;
+        private String avatarPath;
+        private double price;
+        private Category category;
+        private Theme theme;
+
+        public Builder setId(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder setPublisher(String publisher) {
+            this.publisher = publisher;
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder setAvatarPath(String avatarPath) {
+            this.avatarPath = avatarPath;
+            return this;
+        }
+
+        public Builder setPrice(double price) {
+            this.price = price;
+            return this;
+        }
+
+        public Builder setCategory(String category) {
+            this.category = Category.valueOf(category.trim().toUpperCase());
+            return this;
+        }
+
+        public Builder setTheme(String theme) {
+            this.theme = Theme.valueOf(theme.toUpperCase().trim());
+            return this;
+        }
+
+        public Edition createEdition() {
+            return new Edition(id, title, publisher, description, avatarPath, price, category, theme);
+        }
     }
 
-    public Edition(int id, String title, String publisher, String description, String avatarPath, double price, Category category, Theme theme) {
+    private Edition(int id, String title, String publisher, String description, String avatarPath, double price, Category category, Theme theme) {
         this.id = id;
         this.title = title;
         this.publisher = publisher;

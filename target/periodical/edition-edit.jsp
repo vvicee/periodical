@@ -73,11 +73,10 @@
 
         <h4><fmt:message key="admin.category"/></h4>
         <input name="category" type="radio" value="newspaper" checked> <fmt:message key="edition.category.newspaper"/>
-        ">
         <input name="category" type="radio" value="magazine"> <fmt:message key="edition.category.magazine"/>
         <input name="category" type="radio" value="calendar"> <fmt:message key="edition.category.calendar"/>
         <input name="category" type="radio" value="yearbook"> <fmt:message key="edition.category.yearbook"/>
-
+        <br>
         <input class="btn btn-primary ml-5" type="submit" value=" <fmt:message key="edition.edit"/> ">
     </div>
 </form>

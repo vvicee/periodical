@@ -171,22 +171,22 @@ public class EditionDAOImpl implements EditionDAO {
     }
 
     private Edition parseEdition(ResultSet resultSet) throws DBException {
-        Edition edition = new Edition();
-
+        Edition edition;
         try {
-            edition.setId(resultSet.getInt(EDITION_ID));
-            edition.setTitle(resultSet.getString(EDITION_TITLE));
-            edition.setPublisher(resultSet.getString(EDITION_PUBLISHER));
-            edition.setDescription(resultSet.getString(EDITION_DESCRIPTION));
-            edition.setTheme(resultSet.getString(EDITION_THEME));
-            edition.setCategory(resultSet.getString(EDITION_CATEGORY));
-            edition.setAvatarPath(resultSet.getString(EDITION_AVATAR));
-            edition.setPrice(resultSet.getDouble(EDITION_PRICE));
+         edition = new Edition.Builder()
+            .setId(resultSet.getInt(EDITION_ID))
+            .setTitle(resultSet.getString(EDITION_TITLE))
+            .setPublisher(resultSet.getString(EDITION_PUBLISHER))
+            .setDescription(resultSet.getString(EDITION_DESCRIPTION))
+            .setTheme(resultSet.getString(EDITION_THEME))
+            .setCategory(resultSet.getString(EDITION_CATEGORY))
+            .setAvatarPath(resultSet.getString(EDITION_AVATAR))
+            .setPrice(resultSet.getDouble(EDITION_PRICE))
+                .createEdition();
         } catch (SQLException exception) {
             logger.error("Failed parse edition", exception);
             throw new DBException(exception);
         }
-
 
         return edition;
     }

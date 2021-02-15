@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.vvicee.constant.context.ContextConstant.EDITION_SERVICE_CONTEXT;
 import static com.vvicee.constant.entity.EditionConstant.EDITION_ID;
@@ -23,8 +25,10 @@ import static com.vvicee.constant.servlet.EditionServletConstant.EDITION;
 public class EditionEditServlet extends HttpServlet {
 
     public static final Logger logger = Logger.getLogger(EditionEditServlet.class);
-    EditionDAO editionDAO;
-    EditionService editionService;
+    private EditionDAO editionDAO;
+    private EditionService editionService;
+    private Map<String, String> errors;
+
     @Override
     public void init() throws ServletException {
         editionDAO = new EditionDAOImpl();
@@ -34,7 +38,6 @@ public class EditionEditServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         int id = Integer.parseInt(req.getParameter(EDITION_ID));
 
         try {
@@ -50,15 +53,19 @@ public class EditionEditServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        errors = new HashMap();
+
         int id = Integer.parseInt(req.getParameter(EDITION_ID));
 
         try {
             Edition edition = editionDAO.find(id);
             logger.debug("Update edition " + edition);
-            editionService.setParametersOfEdition(req, edition);
-            editionDAO.update(edition);
+            editionService.setParametersOfEdition(errors, req, edition);
+            if (errors.isEmpty()) {
+                editionDAO.update(edition);
+            }
         } catch (DBException e) {
-            logger.error("Failed servlet in post request" + EditionEditServlet.class );
+            logger.error("Failed servlet in post request" + EditionEditServlet.class);
             req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
         }
 

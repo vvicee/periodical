@@ -19,6 +19,28 @@ public class UserDAOImpl implements UserDAO {
     private final Logger logger = Logger.getLogger(UserDAOImpl.class);
 
 
+    public User findByActivationCode(String code) throws DBException {
+        User user = new User.Builder().build();
+        try {
+            Connection connection = dbManager.getConnection();
+            PreparedStatement statement = dbManager.getPreparedStatement(connection, SQL_FIND_USER_BY_ACTIVATION_CODE);
+            statement.setString(1, code);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                user = parseUser(resultSet);
+            }
+
+            dbManager.close(connection, statement, resultSet);
+
+        } catch (SQLException | DBException exception) {
+            logger.error("Failed find user by activation code", exception);
+            throw new DBException(exception);
+        }
+
+        return user;
+    }
+
     @Override
     public void setBalance(User user) throws DBException {
         try {
@@ -65,7 +87,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean isExist(String email, String password) throws DBException {
+    public User isExist(String email, String password) throws DBException {
         User user = null;
         try {
             Connection connection = dbManager.getConnection();
@@ -85,12 +107,12 @@ public class UserDAOImpl implements UserDAO {
             throw new DBException(exception);
         }
 
-        return user != null;
+        return user;
     }
 
     @Override
     public User find(int id) throws DBException {
-        User user = new User();
+        User user = new User.Builder().build();
 
         try {
             Connection connection = dbManager.getConnection();
@@ -137,6 +159,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void add(User user) throws DBException {
         try {
+
             Connection connection = dbManager.getConnection();
             connection.setAutoCommit(false);
             PreparedStatement statement = dbManager.getPreparedStatement(connection, SQL_ADD_USER);
@@ -145,9 +168,7 @@ public class UserDAOImpl implements UserDAO {
             statement.executeUpdate();
 
             ResultSet resultSet = statement.getGeneratedKeys();
-            if (resultSet.next()) {
-                user.setId(resultSet.getInt(USER_ID));
-            }
+            if (resultSet.next()) user.setId(resultSet.getInt(USER_ID));
 
             dbManager.commit(connection);
             dbManager.close(connection, statement, resultSet);
@@ -198,6 +219,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     private void setParametersOfUser(User user, PreparedStatement statement) throws DBException {
+        // name, surname, email, password, mailings
         try {
             statement.setString(1, user.getName());
             statement.setString(2, user.getSurname());
@@ -205,7 +227,7 @@ public class UserDAOImpl implements UserDAO {
             statement.setString(4, user.getPassword());
             statement.setBoolean(5, user.isMailings());
             statement.setBoolean(6, user.isActive());
-            statement.setString(7, String.valueOf(user.getRole()).toLowerCase());
+            statement.setString(7, user.getActivationCode());
 
         } catch (SQLException exception) {
             logger.error("Failed set parameters of user", exception);
@@ -214,17 +236,21 @@ public class UserDAOImpl implements UserDAO {
     }
 
     private User parseUser(ResultSet resultSet) throws DBException {
-        User user = new User();
+        User user;
         try {
-            user.setId(resultSet.getInt(USER_ID));
-            user.setName(resultSet.getString(USER_NAME));
-            user.setSurname(resultSet.getString(USER_SURNAME));
-            user.setEmail(resultSet.getString(USER_EMAIL));
-            user.setPassword(resultSet.getString(USER_PASSWORD));
-            user.setAvatarPath(resultSet.getString(USER_AVATAR));
-            user.setBalance(resultSet.getDouble(USER_BALANCE));
-            user.setRole(resultSet.getString(USER_ROLE));
-            user.setActive(resultSet.getBoolean(USER_ACTIVE));
+            user = new User.Builder()
+                    .setId(resultSet.getInt(USER_ID))
+                    .setName(resultSet.getString(USER_NAME))
+                    .setSurname(resultSet.getString(USER_SURNAME))
+                    .setEmail(resultSet.getString(USER_EMAIL))
+                    .setPassword(resultSet.getString(USER_PASSWORD))
+                    .setAvatarPath(resultSet.getString(USER_AVATAR))
+                    .setBalance(resultSet.getDouble(USER_BALANCE))
+                    .setRole(resultSet.getString(USER_ROLE))
+                    .setActive(resultSet.getBoolean(USER_ACTIVE))
+                    .setActivationCode(resultSet.getString(USER_CODE))
+                    .build();
+
         } catch (SQLException exception) {
             logger.error("Failed parse user", exception);
             throw new DBException(exception);

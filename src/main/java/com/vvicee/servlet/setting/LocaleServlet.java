@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 import static com.vvicee.constant.navigation.Path.HOME_SERVLET;
-import static com.vvicee.constant.servlet.SettingServletConstant.*;
+import static com.vvicee.constant.servlet.LocaleSettingConstant.*;
 import static java.util.Objects.nonNull;
 
 @WebServlet("/locale")

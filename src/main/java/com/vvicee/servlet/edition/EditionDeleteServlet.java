@@ -4,6 +4,7 @@ import com.vvicee.db.dao.EditionDAO;
 import com.vvicee.db.implDao.EditionDAOImpl;
 import com.vvicee.entity.edition.Edition;
 import com.vvicee.exception.DBException;
+import com.vvicee.service.SubscriptionService;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -15,16 +16,20 @@ import java.io.IOException;
 
 import static com.vvicee.constant.entity.EditionConstant.EDITION_ID;
 import static com.vvicee.constant.navigation.Path.*;
+import static com.vvicee.constant.servlet.EditionServletConstant.SUBSCRIPTIONS;
+import static com.vvicee.constant.servlet.ErrorsConstant.EDITION_IN_SUBSCRIPTION_ERROR;
 
 @WebServlet(EDITION_DELETE_SERVLET)
 public class EditionDeleteServlet extends HttpServlet {
 
-    public static final Logger logger = Logger.getLogger(EditionDeleteServlet.class);
-    EditionDAO editionDAO;
+    private static final Logger logger = Logger.getLogger(EditionDeleteServlet.class);
+    private EditionDAO editionDAO;
+    private SubscriptionService subscriptionService;
 
     @Override
     public void init() throws ServletException {
         editionDAO = new EditionDAOImpl();
+        subscriptionService = new SubscriptionService();
     }
 
     @Override
@@ -33,13 +38,18 @@ public class EditionDeleteServlet extends HttpServlet {
 
         try {
             Edition edition = editionDAO.find(id);
-            logger.debug("Delete edition " + edition);
-            editionDAO.delete(edition);
+            if (!subscriptionService.editionInSubscription(edition)) {
+                logger.debug("Delete edition " + edition);
+                editionDAO.delete(edition);
+                logger.debug("Edition delete successfully");
+                resp.sendRedirect(HOME_SERVLET);
+                return;
+            }
+            req.setAttribute(SUBSCRIPTIONS, EDITION_IN_SUBSCRIPTION_ERROR);
         } catch (DBException e) {
             logger.error("Failed delete edition");
             req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
         }
-        logger.debug("Edition delete successfully");
-        resp.sendRedirect(HOME_SERVLET);
+        resp.sendRedirect(EDITION_DESCRIPTION_SERVLET + "?edition_id=" + id);
     }
 }

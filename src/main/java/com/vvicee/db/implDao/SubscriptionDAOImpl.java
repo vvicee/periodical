@@ -75,8 +75,25 @@ public class SubscriptionDAOImpl implements SubscriptionDAO {
     }
 
     @Override
-    public List<Subscription> findAll(){
-        throw new UnsupportedOperationException();
+    public List<Subscription> findAll() throws DBException {
+        List<Subscription> subscriptions = new ArrayList<>();
+
+        try{
+            Connection connection = dbManager.getConnection();
+            PreparedStatement statement = dbManager.getPreparedStatement(connection, SQL_FIND_ALL_SUBS);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                subscriptions.add(parseSubscription(resultSet));
+            }
+
+            dbManager.close(connection, statement, resultSet);
+        } catch (SQLException exception){
+            logger.error("Failed find subscriptions", exception);
+            throw new DBException(exception);
+        }
+
+        return subscriptions;
     }
 
     @Override

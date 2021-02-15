@@ -10,9 +10,7 @@ import java.io.IOException;
 
 import static com.vvicee.constant.context.ContextConstant.REQUEST_PAGE;
 import static com.vvicee.constant.navigation.Path.LOGIN_SERVLET;
-import static com.vvicee.constant.servlet.SettingServletConstant.*;
 import static com.vvicee.constant.servlet.UserServletsConstant.CURRENT_USER;
-import static java.util.Objects.isNull;
 
 public class LoginFilter implements Filter {
     EditionService service;

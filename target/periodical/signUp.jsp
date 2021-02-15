@@ -27,27 +27,34 @@
     <div class="form-group">
         <label class="control-label col-xs-3" for="lastName"><fmt:message key="user.surname"/>:</label>
         <div class="col-xs-9">
-            <input type="text" class="form-control" name="surname" id="lastName" placeholder="<fmt:message key="user.surname"/>">
+            <input type="text" class="form-control" minlength="1" name="surname" id="lastName" placeholder="<fmt:message key="user.surname"/>">
         </div>
     </div>
+
     <div class="form-group">
         <label class="control-label col-xs-3" for="firstName"><fmt:message key="user.name"/>:</label>
         <div class="col-xs-9">
-            <input type="text" class="form-control" name="name" id="firstName" placeholder="<fmt:message key="user.name"/>">
+            <input type="text" class="form-control" minlength="1" name="name" id="firstName" placeholder="<fmt:message key="user.name"/>">
         </div>
     </div>
+    <p class="text-danger"><c:out value='${requestScope.name}'/></p>
+
     <div class="form-group">
         <label class="control-label col-xs-3" for="inputEmail"><fmt:message key="user.mail"/>:</label>
         <div class="col-xs-9">
-            <input type="email" class="form-control" name="email" id="inputEmail" placeholder="<fmt:message key="user.mail"/>">
+            <input type="email" class="form-control" minlength="1" name="email" id="inputEmail" placeholder="<fmt:message key="user.mail"/>">
         </div>
     </div>
+    <p class="text-danger"><c:out value='${requestScope.email}'/></p>
+
     <div class="form-group">
         <label class="control-label col-xs-3" for="inputPassword"><fmt:message key="user.pass"/>:</label>
         <div class="col-xs-9">
-            <input type="password" class="form-control" name="password" id="inputPassword" placeholder="<fmt:message key="user.pass"/>">
+            <input type="password" class="form-control" minlength="1" name="password" id="inputPassword" placeholder="<fmt:message key="user.pass"/>">
         </div>
     </div>
+    <p class="text-danger"><c:out value='${requestScope.password}'/></p>
+
     <div class="form-group">
         <label class="control-label col-xs-3"><fmt:message key="registration.notify"/> :</label>
         <div class="col-xs-2">
@@ -64,7 +71,7 @@
 
     <div class="form-group">
         <div class="col-xs-offset-3 col-xs-9">
-            <input type="submit" class="btn btn-primary" value="<fmt:message key="registration.title"/>">
+            <input type="submit" onsubmit="alert('Activation code sent by email')" class="btn btn-primary" value="<fmt:message key="registration.title"/>">
             <input type="reset" class="btn btn-default" value="<fmt:message key="login.reset"/>">
             <a href="${pageContext.request.contextPath}/home" class="btn-dark"><fmt:message key="login.back"/></a>
         </div>

@@ -23,31 +23,38 @@
 <div class="container">
     <form accept-charset="UTF-8" style="text-align: left;" method="post"
           action="${pageContext.request.contextPath}/admin/add-edition">
-<%--        <img src="${pageContext.request.contextPath}/images/news.jpg" style="width: 350px; height: 300px;float: right;">--%>
+        <%--        <img src="${pageContext.request.contextPath}/images/news.jpg" style="width: 350px; height: 300px;float: right;">--%>
+        <p class="text-danger"><c:out value='${requestScope.edition}'/></p>
         <div class="row">
             <div class="col-md-4">
                 <b><fmt:message key="admin.edition_title"/>:</b>
             </div>
             <div class="col-md-4">
-                <input class="input-field" name="title" type="text" placeholder=""><br><br>
+                <input class="input-field" name="title" type="text" minlength="1" placeholder=""><br><br>
             </div>
         </div>
+        <p class="text-danger"><c:out value='${requestScope.title}'/></p>
+
         <div class="row">
             <div class="col-md-4">
                 <b><fmt:message key="admin.publisher"/>:</b>
             </div>
             <div class="col-md-6">
-                <input class="input-field" name="publisher" type="text" placeholder=""><br><br>
+                <input class="input-field" name="publisher" type="text" minlength="1" placeholder=""><br><br>
             </div>
         </div>
+        <p class="text-danger"><c:out value='${requestScope.publisher}'/></p>
+
         <div class="row">
             <div class="col-md-4">
                 <b><fmt:message key="admin.description"/></b>
             </div>
             <div class="col-md-6">
-                <input class="input-field" name="description" type="text" placeholder=""><br><br>
+                <input class="input-field" name="description" type="text" minlength="1" placeholder=""><br><br>
             </div>
         </div>
+        <p class="text-danger"><c:out value='${requestScope.description}'/></p>
+
         <div class="row">
             <div class="col-md-4">
                 <b><fmt:message key="admin.price"/>:</b>
@@ -56,6 +63,8 @@
                 <input class="input-field" name="price" type="number" min="1"/><br><br>
             </div>
         </div>
+        <p class="text-danger"><c:out value='${requestScope.price}'/></p>
+
 
         <b><fmt:message key="admin.theme"/>:</b><br>
         <input name="theme" type="radio" value="education" checked> <fmt:message key="edition.theme.education"/>

@@ -103,6 +103,7 @@
             </div>
         </div>
     </form>
+    <p class="text-danger"><c:out value='${requestScope.subscriptions}'/></p>
     <div class="form-group">
         <c:if test="${sessionScope.user.role == 'ADMIN'}">
             <a href="${pageContext.request.contextPath}/admin/edit-edition?edition_id=${edition.id}"

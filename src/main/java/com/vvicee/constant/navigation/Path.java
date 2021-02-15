@@ -7,7 +7,7 @@ public class Path {
     public static final String EDITION_DELETE_SERVLET = "/admin/delete-edition";
     public static final String BLOCK_USER_SERVLET = "/admin/block";
     public static final String ADMIN_USERS = "/admin/users";
-    public static final String FILTER_EDITION_SERVLET ="/filter" ;
+    public static final String FILTER_EDITION_SERVLET = "/filter";
     public static final String SORT_EDITION_SERVLET = "/sort";
     public static final String SEARCH_EDITION_SERVLET = "/search";
     public static final String HOME_SERVLET = "/home";
@@ -18,6 +18,7 @@ public class Path {
     public static final String PROFILE_EDIT_SERVLET = "/profile/edit";
     public static final String SIGN_UP_SERVLET = "/signUp";
     public static final String SUBSCRIPTION_SERVLET = "/edition/subscribe";
+    public static final String ACTIVATION_SERVLET = "/activate";
 
 
     public static final String HOME_PAGE = "/index.jsp";

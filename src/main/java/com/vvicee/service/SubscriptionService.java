@@ -11,7 +11,9 @@ import com.vvicee.exception.DBException;
 import org.apache.log4j.Logger;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class SubscriptionService {
     private final Logger logger = Logger.getLogger(SubscriptionService.class);
@@ -49,6 +51,14 @@ public class SubscriptionService {
             return true;
         }
         return false;
+    }
+
+    public boolean editionInSubscription(Edition edition) throws DBException {
+        Set<Edition> editions = new HashSet<>();
+        for(Subscription sub: subscriptionDAO.findAll()){
+            editions.add(sub.getEdition());
+        }
+        return editions.contains(edition);
     }
 
 

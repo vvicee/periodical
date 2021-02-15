@@ -46,7 +46,7 @@ public class EditProfileServlet extends HttpServlet {
 
         try {
             userDAO.update(user);
-        } catch ( DBException e) {
+        } catch (DBException e) {
             logger.error("Failed servlet in post request");
             req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
         }

@@ -15,31 +15,128 @@ public class User implements Serializable {
     private String avatarPath;
     private double balance;
     private Role role;
+    private String activationCode;
 
-    public User() {
 
+    public static class Builder{
+
+        private int id;
+        private String name;
+        private String surname;
+        private String email;
+        private String password;
+        private boolean isActive;
+        private boolean mailings;
+        private String avatarPath;
+        private double balance;
+        private String activationCode;
+        private Role role;
+
+        public Builder setId(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setSurname(String surname) {
+            this.surname = surname;
+            return this;
+        }
+
+        public Builder setEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder setPassword(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder setActive(boolean isActive) {
+            this.isActive = isActive;
+            return this;
+        }
+
+        public Builder setMailings(boolean mailings) {
+            this.mailings = mailings;
+            return this;
+        }
+
+        public Builder setAvatarPath(String avatarPath) {
+            this.avatarPath = avatarPath;
+            return this;
+        }
+
+        public Builder setActivationCode(String activationCode) {
+            this.activationCode = activationCode;
+            return this;
+        }
+
+        public Builder setBalance(double balance) {
+            this.balance = balance;
+            return this;
+        }
+
+        public Builder setRole(String role) {
+            this.role = Role.valueOf(role.trim().toUpperCase());
+            return this;
+        }
+
+        public User build() {
+            return new User(id, name, surname, email, password, isActive, mailings, avatarPath, balance, role, activationCode);
+        }
     }
 
-    public User(String name, String surname, String email, String password, boolean isActive, boolean mailings, Role role) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.password = password;
-        this.isActive = isActive;
-        this.mailings = mailings;
-        this.role = role;
+    public String getActivationCode() {
+        return activationCode;
     }
 
-    public User(int id, String name, String surname, String email, String password, boolean isActive, boolean mailings, String avatarPath, double balance, Role role) {
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
+    }
+
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
-        this.isActive = isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public void setMailings(boolean mailings) {
         this.mailings = mailings;
+    }
+
+    public void setAvatarPath(String avatarPath) {
         this.avatarPath = avatarPath;
+    }
+
+    public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -47,81 +144,56 @@ public class User implements Serializable {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
     public String getEmail() {
         return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public boolean isActive() {
         return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 
     public boolean isMailings() {
         return mailings;
     }
 
-    public void setMailings(boolean mailings) {
-        this.mailings = mailings;
-    }
-
     public String getAvatarPath() {
         return avatarPath;
-    }
-
-    public void setAvatarPath(String avatarPath) {
-        this.avatarPath = avatarPath;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = Role.valueOf(role.toUpperCase().trim());
     }
 
     public double getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
+    public Role getRole() {
+        return role;
     }
+
+    private User(int id, String name, String surname, String email, String password, boolean isActive, boolean mailings, String avatarPath, double balance, Role role, String activationCode) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.isActive = isActive;
+        this.mailings = mailings;
+        this.avatarPath = avatarPath;
+        this.balance = balance;
+        this.role = role;
+        this.activationCode = activationCode;
+    }
+
 
     @Override
     public boolean equals(Object o) {

@@ -26,7 +26,7 @@
                 <b><h4><fmt:message key="user.name"/></h4></b>
             </div>
             <div class="col-md-6">
-                <input class="input-field" name="name" value="${user.name}" placeholder="<fmt:message key="user.name"/> ">
+                <input class="input-field" name="name" value="${user.name}" minlength="1" placeholder="<fmt:message key="user.name"/> ">
             </div>
         </div>
 
@@ -35,7 +35,7 @@
                 <b><h4><fmt:message key="user.surname"/></h4></b>
             </div>
             <div class="col-md-6">
-                <input class="input-field" name="surname" value="${user.surname}" placeholder="<fmt:message key="user.surname"/>">
+                <input class="input-field" name="surname" minlength="1" value="${user.surname}" placeholder="<fmt:message key="user.surname"/>">
             </div>
         </div>
 
