@@ -249,6 +249,7 @@ public class UserDAOImpl implements UserDAO {
                     .setRole(resultSet.getString(USER_ROLE))
                     .setActive(resultSet.getBoolean(USER_ACTIVE))
                     .setActivationCode(resultSet.getString(USER_CODE))
+                    .setMailings(resultSet.getBoolean(USER_MAILINGS))
                     .build();
 
         } catch (SQLException exception) {

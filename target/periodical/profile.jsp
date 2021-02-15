@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="util" tagdir="/WEB-INF/tag" %>
 <c:choose>
     <c:when test="${sessionScope.locale != null}">
         <fmt:setLocale value="${param.locale}" scope="session"/>

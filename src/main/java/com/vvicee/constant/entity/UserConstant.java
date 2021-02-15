@@ -12,4 +12,5 @@ public class UserConstant {
     public static final String USER_ACTIVE = "active";
     public static final String USER_NOTIFY = "notify";
     public static final String USER_CODE = "code";
+    public static final String USER_MAILINGS = "mailings";
 }

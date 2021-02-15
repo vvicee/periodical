@@ -1,8 +1,11 @@
 package com.vvicee.service;
 
 import com.vvicee.db.implDao.EditionDAOImpl;
+import com.vvicee.db.implDao.SubscriptionDAOImpl;
+import com.vvicee.db.implDao.UserDAOImpl;
 import com.vvicee.entity.edition.Edition;
 import com.vvicee.entity.edition.Theme;
+import com.vvicee.entity.user.User;
 import com.vvicee.exception.DBException;
 import com.vvicee.servlet.Validator;
 import org.apache.log4j.Logger;
@@ -13,6 +16,8 @@ import java.util.function.Predicate;
 
 import static com.vvicee.constant.entity.EditionConstant.*;
 import static com.vvicee.constant.servlet.ErrorsConstant.*;
+import static com.vvicee.constant.servlet.MailConstant.EDITIONS;
+import static com.vvicee.constant.servlet.MailConstant.EDITION_MESSAGE;
 
 
 public class EditionService {
@@ -21,10 +26,16 @@ public class EditionService {
 
     private List<Edition> currentEditions;
     private int countEditions;
-    EditionDAOImpl editionDAO;
+    private final EditionDAOImpl editionDAO;
+    private final SubscriptionDAOImpl subscriptionDAO;
+    private final UserDAOImpl userDAO;
+    private final MailService mailService;
 
     public EditionService() {
         editionDAO = new EditionDAOImpl();
+        subscriptionDAO = new SubscriptionDAOImpl();
+        userDAO = new UserDAOImpl();
+        mailService = new MailService();
     }
 
     public void loadEditionsFromDB() throws DBException {
@@ -32,7 +43,18 @@ public class EditionService {
         setCurrentEditions(editions);
     }
 
-    public void notifySubscribers(Theme theme){
+    public void notifySubscribers(Theme theme) throws DBException {
+        Set<Integer> usersId = new HashSet<>();
+        subscriptionDAO.findAll().stream()
+                .filter((subscription -> subscription.getEdition().getTheme().equals(theme)))
+                .forEach(subscription -> usersId.add(subscription.getUserId()));
+
+        for (Integer i : usersId) {
+            User user = userDAO.find(i);
+            if (user.isMailings() && user.isActive()) {
+                mailService.sendMessage(user.getEmail(), EDITIONS, EDITION_MESSAGE);
+            }
+        }
 
     }
 
@@ -68,17 +90,17 @@ public class EditionService {
         String description = req.getParameter(EDITION_DESCRIPTION);
         String publisher = req.getParameter(EDITION_PUBLISHER);
 
-        if(!Validator.validateName(title)){
+        if (!Validator.validateName(title)) {
             errors.put(EDITION_TITLE, INCORRECT_TITLE_ERROR);
-        } else if(!Validator.validateName(description)){
+        } else if (!Validator.validateName(description)) {
             errors.put(EDITION_DESCRIPTION, INCORRECT_DESCRIPTION_ERROR);
-        } else if(!Validator.validateName(publisher)){
+        } else if (!Validator.validateName(publisher)) {
             errors.put(EDITION_PUBLISHER, INCORRECT_PUBLISHER_ERROR);
-        } else if(!Validator.validatePrice(price)){
+        } else if (!Validator.validatePrice(price)) {
             errors.put(EDITION_PRICE, INCORRECT_PRICE_ERROR);
         }
 
-        if(errors.isEmpty()){
+        if (errors.isEmpty()) {
             edition.setTitle(title);
             edition.setDescription(description);
             edition.setPublisher(publisher);

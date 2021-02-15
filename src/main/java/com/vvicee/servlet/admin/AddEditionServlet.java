@@ -67,6 +67,7 @@ public class AddEditionServlet extends HttpServlet {
                 editionService.notifySubscribers(edition.getTheme());
                 logger.debug("Edition added successfully");
                 resp.sendRedirect(HOME_SERVLET);
+                return;
             }
 
         } catch (DBException e) {
