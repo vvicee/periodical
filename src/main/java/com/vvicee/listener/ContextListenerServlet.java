@@ -31,7 +31,7 @@ public class ContextListenerServlet implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
     }
 
-    private void initUserService(ServletContext servletContext) {
+    public void initUserService(ServletContext servletContext) {
         try {
             UserService userService = new UserService();
             servletContext.setAttribute(USER_SERVICE_CONTEXT, userService);
@@ -41,7 +41,7 @@ public class ContextListenerServlet implements ServletContextListener {
         }
         logger.debug("UserService initialize successfully");
     }
-    private void initEditionService(ServletContext servletContext) {
+    public void initEditionService(ServletContext servletContext) {
         try {
             EditionService editionService = new EditionService();
             editionService.loadEditionsFromDB();

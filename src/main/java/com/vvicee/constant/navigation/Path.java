@@ -20,18 +20,17 @@ public class Path {
     public static final String SUBSCRIPTION_SERVLET = "/edition/subscribe";
     public static final String ACTIVATION_SERVLET = "/activate";
 
-
-    public static final String HOME_PAGE = "/index.jsp";
-    public static final String LOGIN_PAGE = "/login.jsp";
-    public static final String ERROR_PAGE = "/error.jsp";
-    public static final String ADMIN_PAGE = "/add-edition.jsp";
-    public static final String EDITION_PAGE = "/edition.jsp";
-    public static final String EDITION_EDIT_PAGE = "/edition-edit.jsp";
-    public static final String PROFILE_EDIT_PAGE = "/profile-edit.jsp";
-    public static final String PROFILE_PAGE = "/profile.jsp";
-    public static final String REGISTRATION_PAGE = "/signUp.jsp";
-    public static final String ACCESS_ERROR_PAGE = "/access-error.jsp";
-    public static final String USERS_PAGE = "/users.jsp";
-    public static final String ADD_EDITION_PAGE = "/add-edition.jsp";
+    private static final String JSP = "/WEB-INF/jsp";
+    public static final String HOME_PAGE = JSP + "/index.jsp";
+    public static final String LOGIN_PAGE = JSP + "/login.jsp";
+    public static final String ERROR_PAGE = JSP + "/error.jsp";
+    public static final String EDITION_PAGE = JSP + "/edition.jsp";
+    public static final String EDITION_EDIT_PAGE = JSP + "/edition-edit.jsp";
+    public static final String PROFILE_EDIT_PAGE = JSP + "/profile-edit.jsp";
+    public static final String PROFILE_PAGE = JSP + "/profile.jsp";
+    public static final String REGISTRATION_PAGE = JSP + "/signUp.jsp";
+    public static final String ACCESS_ERROR_PAGE = JSP + "/access-error.jsp";
+    public static final String USERS_PAGE = JSP + "/users.jsp";
+    public static final String ADD_EDITION_PAGE = JSP + "/add-edition.jsp";
 
 }

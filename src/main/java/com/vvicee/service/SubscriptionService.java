@@ -54,17 +54,19 @@ public class SubscriptionService {
     }
 
     public boolean editionInSubscription(Edition edition) throws DBException {
+        if (edition == null) return false;
         Set<Edition> editions = new HashSet<>();
-        for(Subscription sub: subscriptionDAO.findAll()){
+        for (Subscription sub : subscriptionDAO.findAll()) {
             editions.add(sub.getEdition());
         }
         return editions.contains(edition);
     }
 
 
-    private boolean withdrawMoneyForSubscription(User user, int editionId, String[] months) throws DBException {
+    public boolean withdrawMoneyForSubscription(User user, int editionId, String[] months) throws DBException {
         UserService userService = new UserService();
         Edition edition = editionDAO.find(editionId);
+        if (edition == null) return false;
         double cost = edition.getPrice() * months.length;
         if (user.getBalance() >= cost) {
             userService.changeBalance(user, -cost);

@@ -4,9 +4,8 @@ import com.vvicee.db.dao.UserDAO;
 import com.vvicee.db.implDao.UserDAOImpl;
 import com.vvicee.entity.user.User;
 import com.vvicee.exception.DBException;
-import com.vvicee.service.MailService;
 import com.vvicee.service.UserService;
-import com.vvicee.servlet.Validator;
+import com.vvicee.util.Validator;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -22,7 +21,6 @@ import java.util.UUID;
 import static com.vvicee.constant.entity.UserConstant.*;
 import static com.vvicee.constant.navigation.Path.*;
 import static com.vvicee.constant.servlet.ErrorsConstant.*;
-import static com.vvicee.constant.servlet.MailConstant.ACTIVATION_CODE;
 
 @WebServlet(SIGN_UP_SERVLET)
 public class SignUpServlet extends HttpServlet {

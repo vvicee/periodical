@@ -4,7 +4,7 @@ import com.vvicee.db.dao.UserDAO;
 import com.vvicee.db.implDao.UserDAOImpl;
 import com.vvicee.entity.user.User;
 import com.vvicee.exception.DBException;
-import com.vvicee.servlet.Validator;
+import com.vvicee.util.Validator;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
         logger.debug("Login user with email = " + email);
         try {
 
-            if ((user = userDAO.isExist(email, password)) == null) {
+            if ((user = userDAO.findByEmail(email)) == null) {
                 errors.put(USER_EMAIL, UNREGISTERED_USER_ERROR);
             } else if (!Validator.comparePasswords(user.getPassword(), password)) {
                 errors.put(USER_PASSWORD, INCORRECT_PASSWORD_ERROR);

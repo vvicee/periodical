@@ -45,7 +45,6 @@ public class EditionDeleteServlet extends HttpServlet {
                 resp.sendRedirect(HOME_SERVLET);
                 return;
             }
-            req.setAttribute(SUBSCRIPTIONS, EDITION_IN_SUBSCRIPTION_ERROR);
         } catch (DBException e) {
             logger.error("Failed delete edition");
             req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);

@@ -7,7 +7,7 @@ import com.vvicee.entity.edition.Edition;
 import com.vvicee.entity.edition.Theme;
 import com.vvicee.entity.user.User;
 import com.vvicee.exception.DBException;
-import com.vvicee.servlet.Validator;
+import com.vvicee.util.Validator;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;

@@ -22,14 +22,6 @@ public class UserService {
         users = userDAO.findAll().stream().filter(user -> !user.getRole().equals(Role.ADMIN)).collect(Collectors.toList());
     }
 
-    public List<User> getActiveUsers() {
-        return users.stream().filter(User::isActive).collect(Collectors.toList());
-    }
-
-    public List<User> getBlockedUsers() {
-        return users.stream().filter(user -> !user.isActive()).collect(Collectors.toList());
-    }
-
     public void changeBalance(User user, double money) throws DBException {
         double newBalance = user.getBalance() + money;
         user.setBalance(newBalance);
@@ -43,8 +35,12 @@ public class UserService {
 
     public List<User> getUsers(int page) {
         int maxNumberUsers = 6;
+        if (page <= 0) {
+            page = 1;
+        }
         int from = maxNumberUsers * (page - 1);
         int to = from + maxNumberUsers;
+
 
         if (to > users.size()) {
             to = users.size();

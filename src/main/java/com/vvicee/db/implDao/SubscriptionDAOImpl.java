@@ -14,6 +14,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.vvicee.constant.db.query.EditionQueries.SQL_DELETE_EDITION;
 import static com.vvicee.constant.db.query.SubscriptionQueries.*;
 import static com.vvicee.constant.entity.SubscriptionConstant.*;
 
@@ -122,8 +123,19 @@ public class SubscriptionDAOImpl implements SubscriptionDAO {
     }
 
     @Override
-    public void delete(Subscription element) {
-        throw new UnsupportedOperationException();
+    public void delete(Subscription element) throws DBException {
+        try {
+            Connection connection = dbManager.getConnection();
+            PreparedStatement statement = dbManager.getPreparedStatement(connection, SQL_DELETE_SUBSCRIPTION);
+            statement.setInt(1, element.getId());
+            statement.executeUpdate();
+
+            dbManager.close(connection);
+            dbManager.close(statement);
+        } catch (SQLException exception) {
+            logger.error("Failed delete edition", exception);
+            throw new DBException(exception);
+        }
     }
 
     @Override

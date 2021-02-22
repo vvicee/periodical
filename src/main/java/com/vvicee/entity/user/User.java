@@ -180,7 +180,7 @@ public class User implements Serializable {
         return role;
     }
 
-    private User(int id, String name, String surname, String email, String password, boolean isActive, boolean mailings, String avatarPath, double balance, Role role, String activationCode) {
+    public User(int id, String name, String surname, String email, String password, boolean isActive, boolean mailings, String avatarPath, double balance, Role role, String activationCode) {
         this.id = id;
         this.name = name;
         this.surname = surname;

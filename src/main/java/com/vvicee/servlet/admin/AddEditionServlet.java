@@ -39,7 +39,7 @@ public class AddEditionServlet extends HttpServlet {
 
     @Override
     @SuppressWarnings("unchecked")
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         errors = (Map<String, String>) req.getSession().getAttribute(ERRORS);
         if (nonNull(errors)) {
             errors.forEach(req::setAttribute);

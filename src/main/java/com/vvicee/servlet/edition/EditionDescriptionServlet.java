@@ -39,7 +39,6 @@ public class EditionDescriptionServlet extends HttpServlet {
             req.setAttribute(EDITION, edition);
             req.setAttribute(MONTHS, Month.getAvailableMonths());
 
-            req.getSession().setAttribute(VIEWS, edition);
             req.getRequestDispatcher(EDITION_PAGE).forward(req, resp);
 
         } catch (DBException e) {
